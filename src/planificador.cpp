@@ -56,7 +56,7 @@ std::string combinar_mensajes_dependencias(
 ) {
     std::string combinado;
 
-    for (int dep_idx : acts[idx].deps_idx) {
+    for (int dep_idx : acts[idx].dependencias) {
         combinado += acts[dep_idx].mensaje;
         combinado += "; ";
     }
@@ -286,7 +286,7 @@ void abortar_rama(
 
 
         //revisar las actividades que dependen de esta
-        for (int dep_idx : acts[idx].dependientes_idx) {
+        for (int dep_idx : acts[idx].dependientes) {
 
             if (
                 acts[dep_idx].estado == Estado::PENDIENTE ||
@@ -565,7 +565,7 @@ void ejecutar_planificador(
             //actualizar las actividades que dependen de esta
             for (
                 int dep_idx :
-                acts[idx].dependientes_idx
+                acts[idx].dependientes
             ) {
 
                 acts[dep_idx].deps_pendientes--;
