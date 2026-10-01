@@ -257,6 +257,8 @@ ProcesoActivo lanzar_actividad(
     acts[idx].estado = Estado::CORRIENDO;
     acts[idx].pid = pid;
 
+        std::cout << "INICIA: " << acts[idx].nombre
+          << " PID=" << pid << std::endl;
 
     //guardar el hijo activo
     return ProcesoActivo{
@@ -557,7 +559,7 @@ void ejecutar_planificador(
 
             //marcar como terminada
             acts[idx].estado = Estado::HECHA;
-
+std::       cout << "TERMINA: " << acts[idx].nombre << std::endl;
 
             restantes--;
 
