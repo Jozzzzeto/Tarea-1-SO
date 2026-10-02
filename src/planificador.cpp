@@ -160,6 +160,7 @@ ProcesoActivo lanzar_actividad(
 
         close(pipe_in[0]);
 
+        
 
         //simular tiempo de la actividad
         usleep(
@@ -257,6 +258,8 @@ ProcesoActivo lanzar_actividad(
     acts[idx].estado = Estado::CORRIENDO;
     acts[idx].pid = pid;
 
+        std::cout << "INICIA: " << acts[idx].nombre
+          << " PID=" << pid << std::endl;
 
     //guardar el hijo activo
     return ProcesoActivo{
@@ -294,7 +297,7 @@ void abortar_rama(
             ) {
 
                 acts[dep_idx].estado = Estado::ABORTADA;
-
+                std::cout << "ABORTADA: " << acts[dep_idx].nombre << std::endl;
                 restantes--;
 
                 cola.push(dep_idx);
@@ -554,10 +557,10 @@ void ejecutar_planificador(
             //guardar mensaje
             acts[idx].mensaje = buf;
 
-
+            std::cout << "MENSAJE RECIBIDO: " << acts[idx].mensaje << std::endl;
             //marcar como terminada
             acts[idx].estado = Estado::HECHA;
-
+std::       cout << "TERMINA: " << acts[idx].nombre << std::endl;
 
             restantes--;
 
@@ -593,6 +596,7 @@ void ejecutar_planificador(
 
             acts[idx].estado = Estado::FALLIDA;
 
+            std::cout << "FALLA: " << acts[idx].nombre << std::endl;
             restantes--;
 
 
