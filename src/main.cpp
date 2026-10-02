@@ -1,34 +1,65 @@
 #include "planificador.hpp"
+#include "parser.hpp"
 #include <vector>
+#include <iostream>
 
-int main() {
-    std::vector<Actividad> actividades;
 
-    Actividad a;
-    a.id = "1";
-    a.nombre = "Actividad_1";
-    a.tiempo_ms = 2000;
-    a.estado = Estado::LISTA;
-    a.dependientes = {2};
+int main(int argc, char* argv[]) {
+//asegura que al ejecutar reciba los argumentos necesarios
+    if (argc != 3) {
+        std::cerr << "Uso: ./planificador plan.txt K || ./planificador src/plan.txt K \n";
+        return 1;
+    }
 
-    Actividad b;
-    b.id = "2";
-    b.nombre = "Actividad_2";
-    b.tiempo_ms = 2000;
-    b.estado = Estado::LISTA;
-    b.dependientes = {2};
+    std::string archivo = argv[1];
+    
+    //declara la variable para K procesos
+    int K;
 
-    Actividad c;
-    c.id = "3";
-    c.nombre = "Actividad_3";
-    c.tiempo_ms = 2000;
-    c.estado = Estado::PENDIENTE;
-    c.dependencias = {0, 1};
-    c.deps_pendientes = 2;
+    try {
+        K = std::stoi(argv[2]); //transforma K en valor entero
+    }
+    catch (...) {
+        std::cerr << "K debe ser un numero entero\n";
+        return 1;
+    }
 
-    actividades = {a, b, c};
+    if (K <= 0) {
+        std::cerr << "K debe ser mayor a 0\n";
+        return 1;
+    }
 
-    ejecutar_planificador(actividades, 2);
+    //transforma el archivo en el DAG
+    try {
+        std::vector<Actividad> actividades =
+            parsear_plan(archivo);
+
+        ejecutar_planificador(
+            actividades,
+            K
+        );
+
+        std::cout << "\n--- Resultado final ---\n";
+
+        for (const auto& act : actividades) {
+            std::cout
+                << act.nombre
+                << " -> "
+                << estado_a_texto(act.estado)
+                << "\n";
+        }
+
+    }
+    //avisa en caso de error
+    catch (const std::exception& e) {
+
+        std::cerr
+            << "Error: "
+            << e.what()
+            << "\n";
+
+        return 1;
+    }
 
     return 0;
 }

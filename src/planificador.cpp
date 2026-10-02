@@ -125,9 +125,8 @@ ProcesoActivo lanzar_actividad(
     }
 
 
-    // =========================
-    // HIJO
-    // =========================
+    
+    //programa hijo
     if (pid == 0) {
 
         //el hijo no escribe en pipe_in
@@ -172,10 +171,8 @@ ProcesoActivo lanzar_actividad(
 
         //mensaje que genera la actividad
         std::string msg_salida =
-            acts[idx].nombre
-            + " completado. Insumo: "
-            + buf;
-
+        acts[idx].nombre
+        + " completado";
 
         size_t cantidad =
             std::min(
@@ -209,9 +206,7 @@ ProcesoActivo lanzar_actividad(
     }
 
 
-    // =========================
-    // PADRE
-    // =========================
+    //programa padre
 
     //el padre no lee pipe_in
     close(pipe_in[0]);
@@ -525,10 +520,7 @@ void ejecutar_planificador(
             &&
             WEXITSTATUS(status) == 0;
 
-
-        // =========================
-        // ACTIVIDAD TERMINO BIEN
-        // =========================
+        //la actividad finaliza correctamene
         if (ok) {
 
             char buf[TAM_MSG] = {0};
@@ -560,7 +552,7 @@ void ejecutar_planificador(
             std::cout << "MENSAJE RECIBIDO: " << acts[idx].mensaje << std::endl;
             //marcar como terminada
             acts[idx].estado = Estado::HECHA;
-std::       cout << "TERMINA: " << acts[idx].nombre << std::endl;
+std::cout << "TERMINA: " << acts[idx].nombre << std::endl;
 
             restantes--;
 
@@ -588,10 +580,7 @@ std::       cout << "TERMINA: " << acts[idx].nombre << std::endl;
             }
         }
 
-
-        // =========================
-        // ACTIVIDAD FALLO
-        // =========================
+        //fallo de la actividad
         else {
 
             acts[idx].estado = Estado::FALLIDA;
