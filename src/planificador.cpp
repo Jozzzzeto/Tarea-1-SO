@@ -160,9 +160,7 @@ ProcesoActivo lanzar_actividad(
 
         close(pipe_in[0]);
 
-            if (acts[idx].id == "2") {
-            _exit(1);
-}
+        
 
         //simular tiempo de la actividad
         usleep(
