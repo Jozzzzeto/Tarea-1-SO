@@ -160,6 +160,9 @@ ProcesoActivo lanzar_actividad(
 
         close(pipe_in[0]);
 
+            if (acts[idx].id == "2") {
+            _exit(1);
+}
 
         //simular tiempo de la actividad
         usleep(
@@ -296,7 +299,7 @@ void abortar_rama(
             ) {
 
                 acts[dep_idx].estado = Estado::ABORTADA;
-
+                std::cout << "ABORTADA: " << acts[dep_idx].nombre << std::endl;
                 restantes--;
 
                 cola.push(dep_idx);
@@ -595,6 +598,7 @@ std::       cout << "TERMINA: " << acts[idx].nombre << std::endl;
 
             acts[idx].estado = Estado::FALLIDA;
 
+            std::cout << "FALLA: " << acts[idx].nombre << std::endl;
             restantes--;
 
 
