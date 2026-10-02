@@ -556,7 +556,7 @@ void ejecutar_planificador(
             //guardar mensaje
             acts[idx].mensaje = buf;
 
-
+            std::cout << "MENSAJE RECIBIDO: " << acts[idx].mensaje << std::endl;
             //marcar como terminada
             acts[idx].estado = Estado::HECHA;
 std::       cout << "TERMINA: " << acts[idx].nombre << std::endl;
