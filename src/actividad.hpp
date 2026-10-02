@@ -40,7 +40,7 @@ struct Actividad {
     std::string mensaje;
 };
 
-//salida del estado de la actividad cuando se hace SIGINT (declarado)
+//convierte el estado de la actividad a texto
 const char* estado_a_texto(Estado estado); 
 
 #endif
